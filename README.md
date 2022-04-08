@@ -3,7 +3,7 @@
 A React/Redux-Saga game application, that connects to a web socket to play.
 
 ## APP URL
-This application is hosted on heroku. Click here to view the application https://minesweepers-game-app.herokuapp.com/
+This application is hosted on heroku. Click here to view the application https://minesweepers-game.netlify.app/
 ### Development Environment
 
 ### Setup
