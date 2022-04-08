@@ -9,6 +9,7 @@ export const useAppStyles = makeStyles({
   headText: {
     fontWeight: 'bold',
     fontSize: 32,
+    color: 'black',
   },
   layout: {
     position: 'fixed',
