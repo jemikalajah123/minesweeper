@@ -3,7 +3,7 @@
 A React/Redux-Saga game application, that connects to a web socket to play.
 
 ## APP URL
-This application is hosted on heroku. Click here to view the documentation https://minesweepers-game-app.herokuapp.com/
+This application is hosted on heroku. Click here to view the application https://minesweepers-game-app.herokuapp.com/
 ### Development Environment
 
 ### Setup
@@ -18,16 +18,17 @@ Clone the [repository](https://github.com/sodiadrhain/movie-web-app.git) and pro
 
 ### Running App locally
 
-This app is written with Nodejs; Enter the folloeing commands to start app locally
-## Setup env for the Project
-
-Create a .env file containing the keys in the env.example file with your own configs; use the cmd to create the env from your root dir
-
-```
-mkdir .env
-```
+This app is written with ReactJs; Enter the folloeing commands to start app locally
 
 ## Project setup
+
+```
+cd minesweeper
+```
+
+```
+npm install
+```
 
 ```
 npm run start
@@ -49,7 +50,7 @@ npm run docker:bash
 
 to build image and container for app
 
-when this is done, app will basically start on port `6000`.
+when this is done, app will basically start on port `8080`.
 
 ### Viewing the running ports
 
@@ -62,7 +63,7 @@ docker ps
 You will be given a printout showing your running containers. Part of the printout should contain something like this:
 
 ```
-.....   0.0.0.0:6000->6000/tcp,     fee-processing-app
+.....   0.0.0.0:8080->8080/tcp,     minesweeper-app
 
 ```
 
@@ -92,6 +93,6 @@ This will start the container again.
 
 To load the homepage of the app, visit the url below in a browser:
 
-    http://0.0.0.0:6000
+    http://0.0.0.0:8080
 
 Thus your adventure begins... The project is up and running.

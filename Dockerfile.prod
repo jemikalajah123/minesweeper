@@ -14,8 +14,20 @@ RUN npm install
 # Copy entire app to docker
 COPY . /app/
 
-# Ports
-EXPOSE 8080
+# Build the app
+RUN npm build
 
-# Run in development mode
-CMD ["npm", "run", "start"]
+# Bundle static assets with nginx
+FROM nginx:1.21.0-alpine
+
+# Copy built assets from builder
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Add nginx.conf file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose app port
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

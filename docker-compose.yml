@@ -9,7 +9,7 @@ services:
     volumes:
       - ./src:/app/src
     ports:
-      - 6000:6000
+      - 8080:8080
 networks:
   main_network:
     driver: bridge
