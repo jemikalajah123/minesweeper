@@ -1,0 +1,52 @@
+# CI - CD workflow for movie-web-app
+# Handles CI for push to master branch
+name: minesweeper-service CI - CD
+on:
+  push:
+    branches:
+      - master
+jobs:
+  codacy-analysis-cli:
+    name: Analyze Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@master
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: codacy-analysis-cli
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: |
+          npm install
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build and push Dockerfile to Heroku
+        env:
+          HEROKU_APP_NAME: minesweepers-game-app
+          DOCKERFILE_DIRECTORY: '.'
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          DOCKERFILE_NAME: 'Dockerfile.prod'
+          DOCKER_OPTIONS: '--no-cache'
+        run: |
+          cd ${DOCKERFILE_DIRECTORY}
+          echo ${HEROKU_API_KEY} | docker login \
+            --username=${HEROKU_EMAIL} \
+            registry.heroku.com \
+            --password-stdin
+          docker build \
+            --file ${DOCKERFILE_NAME} \
+            ${DOCKER_OPTIONS} \
+            --tag registry.heroku.com/${HEROKU_APP_NAME}/web .
+          heroku container:push web --app ${HEROKU_APP_NAME}
+          heroku container:release web --app ${HEROKU_APP_NAME}

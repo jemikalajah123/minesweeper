@@ -1,0 +1,15 @@
+version: "2"
+services:
+  app:
+    container_name: minesweeper_app
+    image: minesweeper_app_image
+    build: .
+    networks:
+      - main_network
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 6000:6000
+networks:
+  main_network:
+    driver: bridge
